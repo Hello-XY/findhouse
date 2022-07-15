@@ -54,9 +54,13 @@ export default {
       try {
         const res = await login(this.username, this.password)
         console.log(res)
-        this.$store.commit('setUser', res.data.body)
-        this.$router.push('/home/profile')
-        this.$toast.success('登录成功')
+        if (res.data.status === 400) {
+          this.$toast.fail(res.data.description)
+        } else {
+          this.$store.commit('setUser', res.data.body)
+          this.$router.push('/home/profile')
+          this.$toast.success('登录成功')
+        }
       } catch (error) {
         console.log(error)
         this.$toast.fail('登录失败')
