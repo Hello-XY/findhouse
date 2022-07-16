@@ -4,7 +4,7 @@
       <div class="App" style="">
         <div class="layout">
           <div>
-            <div class="My_title__39w3V">
+            <div class="My_title__39w3V" v-if="!isLogin">
               <img
                 class="My_bg__2j-VX"
                 src="http://liufusong.top:8080/img/profile/bg.png"
@@ -33,6 +33,32 @@
                 </div>
               </div>
             </div>
+            <div class="My_title__39w3V" v-if="isLogin">
+              <img class="My_bg__2j-VX" :src="imgUrl" alt="背景图" />
+              <div class="My_info__eOYeg">
+                <div class="My_myIcon__3cKIV">
+                  <img
+                    class="My_avatar__2Fbh7"
+                    src="http://liufusong.top:8080/img/profile/avatar.png"
+                    alt="icon"
+                  />
+                </div>
+                <!-- 登陆 -->
+                <div class="My_user__B6O1D">
+                  <div class="My_name__3U2NB">{{ username }}</div>
+                  <div class="My_edit__3wqlv">
+                    <van-button
+                      class="sign__out"
+                      type="primary"
+                      color="#21b97a"
+                      @click="logout"
+                      >退出</van-button
+                    >
+                  </div>
+                  <div>编辑个人资料</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -57,17 +83,53 @@
 </template>
 
 <script>
-import { user } from '@/api/user'
+import { getUserInfo } from '@/api/user'
 
 export default {
   data() {
-    return {}
+    return {
+      username: '',
+      imgUrl: 'http://liufusong.top:8080/img/profile/bg.png'
+    }
   },
   created() {
-    const res = user()
-    console.log(res)
+    this.getUserInfo()
   },
-  methods: {}
+  computed: {
+    isLogin() {
+      return !!this.$store.state.user.token
+    }
+  },
+  methods: {
+    async getUserInfo() {
+      if (this.isLogin) {
+        try {
+          const res = await getUserInfo()
+          console.log(res)
+          if (res.data.status === 200) {
+            this.username = res.data.body.nickname || this.username
+            this.imgUrl = `http://liufusong.top:8080${res.data.body.avatar}`
+          }
+        } catch (error) {
+          this.$toast.fail('请重新登录')
+        }
+      }
+    },
+    logout() {
+      this.$dialog
+        .confirm({
+          title: '提示',
+          message: '是否确定退出？'
+        })
+        .then(() => {
+          // on confirm
+          this.$store.commit('setUser', {})
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  }
 }
 </script>
 
@@ -143,6 +205,18 @@ export default {
               line-height: 30px;
               padding: 0 15px;
               border-radius: 5px;
+            }
+            .sign__out {
+              border-radius: 30px;
+              color: #fff;
+              padding: 2px 5px;
+              background: #21b97a;
+              font-size: 12px;
+              width: 54px;
+              height: 20px;
+              line-height: 20px;
+              margin-top: -20px;
+              margin-bottom: 20px;
             }
           }
         }

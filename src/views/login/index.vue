@@ -54,7 +54,7 @@ export default {
       try {
         const res = await login(this.username, this.password)
         console.log(res)
-        if (res.data.status === 400) {
+        if (res.data.status !== 200) {
           this.$toast.fail(res.data.description)
         } else {
           this.$store.commit('setUser', res.data.body)

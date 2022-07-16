@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export const user = () => {
+export const getUserInfo = () => {
   return request({
     url: '/user'
   })
