@@ -13,6 +13,10 @@ const routes = [
     component: () => import('@/views/favorate')
   },
   {
+    path: '/rent',
+    component: () => import('@/views/rent')
+  },
+  {
     path: '/',
     component: () => import('@/views/Layout'),
     redirect: '/home',

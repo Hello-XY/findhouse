@@ -8,6 +8,7 @@
       :desc="item.desc"
       :title="item.title"
       :thumb="`http://liufusong.top:8080${item.houseImg}`"
+      lazy-load
     >
       <template #tags>
         <van-tag color="#e1f5f8" text-color="#39becd" size="medium">{{
