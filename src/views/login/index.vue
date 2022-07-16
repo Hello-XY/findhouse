@@ -81,6 +81,7 @@ export default {
     color: #fff;
     width: 22px;
     height: 22px;
+    line-height: 22px;
   }
 }
 .form {
