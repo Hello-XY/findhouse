@@ -65,8 +65,8 @@
     </div>
     <div class="center">
       <van-grid :column-num="3" :border="false">
-        <van-grid-item icon="star-o" text="我的收藏" to="/favorate" />
-        <van-grid-item icon="wap-home-o" text="我的出租" to="/rent" />
+        <van-grid-item icon="star-o" text="我的收藏" @click="favorateFn" />
+        <van-grid-item icon="wap-home-o" text="我的出租" @click="rentFn" />
         <van-grid-item icon="clock-o" text="看房记录" />
       </van-grid>
       <van-grid :column-num="3" :border="false">
@@ -128,6 +128,20 @@ export default {
         .catch(() => {
           // on cancel
         })
+    },
+    favorateFn() {
+      if (this.isLogin) {
+        this.$router.push('/favorate')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    rentFn() {
+      if (this.isLogin) {
+        this.$router.push('/rent')
+      } else {
+        this.$router.push('/login')
+      }
     }
   }
 }
