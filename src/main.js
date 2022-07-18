@@ -5,6 +5,7 @@ import store from './store'
 import Vant, { Lazyload } from 'vant'
 import 'vant/lib/index.css'
 import 'amfe-flexible'
+import '@/assets/fonts/iconfont.css'
 Vue.use(Lazyload)
 Vue.use(Vant)
 

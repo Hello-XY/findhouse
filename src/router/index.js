@@ -17,6 +17,18 @@ const routes = [
     component: () => import('@/views/rent')
   },
   {
+    path: '/rent/add',
+    component: () => import('@/views/add')
+  },
+  {
+    path: '/city',
+    component: () => import('@/views/city')
+  },
+  {
+    path: '/map',
+    component: () => import('@/views/map')
+  },
+  {
     path: '/',
     component: () => import('@/views/Layout'),
     redirect: '/home',
